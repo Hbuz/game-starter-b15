@@ -1,14 +1,17 @@
 import { BaseEntity, PrimaryGeneratedColumn, Column, Entity, Index, OneToMany, ManyToOne } from 'typeorm'
 import User from '../users/entity'
+import { Cell, mainBoard } from '../lib/utils'
 
-export type Symbol = 'x' | 'o'
-export type Row = [ Symbol | null, Symbol | null, Symbol | null ]
-export type Board = [ Row, Row, Row ]
+// export type Symbol = 'x' | 'o'
+// export type Row = [Symbol | null, Symbol | null, Symbol | null]
+// export type Board = [Row, Row, Row]
 
 type Status = 'pending' | 'started' | 'finished'
 
-const emptyRow: Row = [null, null, null]
-const emptyBoard: Board = [ emptyRow, emptyRow, emptyRow ]
+
+// const emptyRow: Row = [null, null, null]
+// const emptyBoard: Board = [emptyRow, emptyRow, emptyRow]
+
 
 @Entity()
 export class Game extends BaseEntity {
@@ -16,26 +19,31 @@ export class Game extends BaseEntity {
   @PrimaryGeneratedColumn()
   id?: number
 
-  @Column('json', {default: emptyBoard})
-  board: Board
+  @Column('json', { default: mainBoard })
+  board: Cell[][]
 
-  @Column('char', {length:1, default: 'x'})
+  /* @Column('char', { length: 1, default: 'x' })  //CHANGE ME
   turn: Symbol
 
-  @Column('char', {length:1, nullable: true})
-  winner: Symbol
+  @Column('char', { length: 1, nullable: true })
+  winner: Symbol */
+  @Column()
+  turn: Player
 
-  @Column('text', {default: 'pending'})
+  @Column({ nullable: true })
+  winner: Player
+
+  @Column('text', { default: 'pending' })
   status: Status
 
   // this is a relation, read more about them here:
   // http://typeorm.io/#/many-to-one-one-to-many-relations
-  @OneToMany(_ => Player, player => player.game, {eager:true})
+  @OneToMany(_ => Player, player => player.game, { eager: true })
   players: Player[]
 }
 
 @Entity()
-@Index(['game', 'user', 'symbol'], {unique:true})
+@Index(['game', 'user', 'avatar'], { unique: true })
 export class Player extends BaseEntity {
 
   @PrimaryGeneratedColumn()
@@ -48,8 +56,8 @@ export class Player extends BaseEntity {
   game: Game
 
   @Column()
-  userId: number
+  userId: number  //Username?
 
-  @Column('char', {length: 1})
-  symbol: Symbol
+  @Column()
+  avatar: string  //url to image
 }
