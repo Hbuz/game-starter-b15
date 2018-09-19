@@ -17,6 +17,7 @@ const TopBar = (props) => {
         <Typography variant="title" color="inherit" style={{flex: 1}}>
           Multiplayer Tic Tac Toe
         </Typography>
+        
         {
           user &&
           <Button color="inherit"><AccountIcon /> { user.firstName }</Button>

@@ -5,6 +5,7 @@ import {getGames, joinGame, updateGame} from '../../actions/games'
 import {getUsers} from '../../actions/users'
 import {userId} from '../../jwt'
 import Paper from 'material-ui/Paper'
+import Button from 'material-ui/Button'
 import Board from './Board'
 import './GameDetails.css'
 
@@ -30,9 +31,6 @@ class GameDetails extends PureComponent {
     )
     updateGame(game.id, board)
   }
-
-
-
   render() {
     const {game, users, authenticated, userId} = this.props
 
@@ -70,13 +68,16 @@ class GameDetails extends PureComponent {
         winner &&
         <p>Winner: {users[winner].firstName}</p>
       }
-
+        
+      <Button variant="outlined" color="primary" className="tile" style={{backgroundColor:"#96B7F0"}}>Dice</Button>
+    
       <hr />
 
       {
         game.status !== 'pending' &&
         <Board board={game.board} makeMove={this.makeMove} />
       }
+    
     </Paper>)
   }
 }
