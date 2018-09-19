@@ -1,6 +1,47 @@
 .board-tile {
-  height: 65px;
+  border-style: solid;
+  border-width: 1px;
+  text-align:center;
+  height: 55px;
   width: 105px;
-  background-color: lightgreen
- 
+  float:left;
+  background-color:lightblue
+ }
+
+.board-style {
+
+  text-align:center;
+  height: 100%;
+  background-color:pink;
+}
+
+/*.board-style-snake{
+  background-image: url(../img/snake.jpg);
+   
+} */
+
+.board-style-snake img{
+ position: relative;
+ z-index: 1;
+ height:58px;
+ width:56px;
+ bottom:57px;
+}
+
+.board-style-player1{
+ position: relative;
+ z-index: 1;
+ height:58px;
+ width:56px;
+ bottom:57px;
+}
+
+.board-style-player2{
+  position: relative;
+  z-index: 1;
+  height:58px;
+  width:56px;
+  bottom:57px;
+
+
 }
