@@ -17,7 +17,7 @@ const TopBar = (props) => {
         <Typography variant="title" color="inherit" style={{flex: 1}}>
           Treasure Hunt
         </Typography>
-        <div style={{zIndex:10,backgroundColor:'green'>
+        
         {
           user &&
           <Button color="inherit"><AccountIcon /> { user.firstName }</Button>
@@ -39,7 +39,6 @@ const TopBar = (props) => {
           /games$/.test(location.pathname) &&
           <Button color="inherit" onClick={() => history.push('/logout')}>Log out</Button>
         }
-      </div>
       </Toolbar>
     </AppBar>
   )
