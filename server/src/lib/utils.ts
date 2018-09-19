@@ -1,21 +1,30 @@
-import { Player } from '../games/entities'
+import Player from '../players/entity'
 
 export interface Cell {
-  id: number
+  cellPathNumber: number
   current: Player[]
   hiddenTrap: string
 }
 
-const path = (id: number, current: Player[], hiddenTrap: string): Cell => { return { id, current, hiddenTrap } }
-
-
-const fieldingsCell: Cell = {
-  id: 0,
+export const startingCell: Cell = {
+  cellPathNumber: 0,
   current: [],
   hiddenTrap: ''
 }
 
-export const mainBoard: Cell[][] = [
+export type Dice = [number, number]
+export type Board = Cell[][]
+
+const path = (cellPathNumber: number, current: Player[], hiddenTrap: string): Cell => { return { cellPathNumber, current, hiddenTrap } }
+
+
+const fieldingsCell: Cell = {
+  cellPathNumber: 0,
+  current: [],
+  hiddenTrap: ''
+}
+
+export const mainBoard: Board = [
   [path(1,[],''), path(2,[],''), path(3,[],''),  fieldingsCell,  fieldingsCell,  fieldingsCell,  fieldingsCell,   fieldingsCell,   fieldingsCell,   fieldingsCell],
   [fieldingsCell, fieldingsCell, path(4,[],''),  fieldingsCell,  fieldingsCell,  fieldingsCell,  fieldingsCell,   fieldingsCell,   fieldingsCell,   fieldingsCell],
   [fieldingsCell, fieldingsCell, path(5,[],''),  path(6,[],''),  path(7,[],''),  fieldingsCell,  fieldingsCell,   fieldingsCell,   fieldingsCell,   fieldingsCell],
@@ -28,3 +37,8 @@ export const mainBoard: Cell[][] = [
   [fieldingsCell, fieldingsCell, fieldingsCell,  fieldingsCell,  fieldingsCell,  fieldingsCell,  fieldingsCell,   fieldingsCell,   fieldingsCell,   path(35,[],'')],
   [fieldingsCell, fieldingsCell, fieldingsCell,  fieldingsCell,  fieldingsCell,  fieldingsCell,  fieldingsCell,   fieldingsCell,   fieldingsCell,   path(36,[],'')],
 ]
+
+
+export const rollDice = (): Dice => {
+  return new Number[Math.floor(Math.random() * 6) + 1] [Math.floor(Math.random() * 6) + 1]
+}
