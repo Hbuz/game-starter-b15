@@ -1,7 +1,7 @@
 import { BaseEntity, PrimaryGeneratedColumn, Column, Entity, Index, ManyToOne } from 'typeorm'
 import User from '../users/entity'
 import Game from '../games/entity'
-import { Cell } from '../lib/utils'
+// import { Cell } from '../lib/utils'
 
 @Entity()
 @Index(['game', 'user', 'avatar'], { unique: true })
@@ -22,8 +22,8 @@ export default class Player extends BaseEntity {
   @Column()
   playerNumber: string   //player1||player2
 
-  @Column('json')
-  currentCell: Cell
+  @Column()
+  currentCell: number
 
   @Column()
   avatar: string  //url to image

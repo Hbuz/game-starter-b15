@@ -8,6 +8,7 @@ import Paper from 'material-ui/Paper'
 // import Button from 'material-ui/Button'
 import Board from './Board'
 import './GameDetails.css'
+import player2 from '../../images/player2.png'
 
 class GameDetails extends PureComponent {
 
@@ -18,7 +19,7 @@ class GameDetails extends PureComponent {
     }
   }
 
-  joinGame = () => this.props.joinGame(this.props.game.id)
+  joinGame = () => this.props.joinGame(this.props.game.id, player2)
 
   updateGame = () => this.props.updateGame(this.props.game.id, this.props.game.board)
 
@@ -49,7 +50,7 @@ class GameDetails extends PureComponent {
       .filter(p => p.symbol === game.winner)
       .map(p => p.userId)[0]
 
-    return (<Paper className="outer-paper">
+    return (<div className="outer-paper">
       <h1>Game #{game.id}</h1>
 
       <p>Status: {game.status}</p>
@@ -85,7 +86,7 @@ class GameDetails extends PureComponent {
         <Board board={game.board} makeMove={this.makeMove} />
       }
     
-    </Paper>)
+    </div>)
   }
 }
 

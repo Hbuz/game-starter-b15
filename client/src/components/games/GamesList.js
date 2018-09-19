@@ -8,6 +8,7 @@ import Paper from 'material-ui/Paper'
 import Card, { CardActions, CardContent } from 'material-ui/Card'
 import Typography from 'material-ui/Typography'
 import './GamesList.css'
+import player1 from '../../images/player1.png'
 
 class GamesList extends PureComponent {
   componentWillMount() {
@@ -16,6 +17,7 @@ class GamesList extends PureComponent {
       if (this.props.users === null) this.props.getUsers()
     }
   }
+
   renderGame = (game) => {
     const { users, history } = this.props
     return (<Card key={game.id} className="game-card">
@@ -46,8 +48,10 @@ class GamesList extends PureComponent {
     </Card>)
   }
 
+  createGame = () => this.props.createGame(player1)
+
   render() {
-    const { games, users, authenticated, createGame } = this.props
+    const { games, users, authenticated } = this.props
 
     if (!authenticated) return (
       <Redirect to="/login" />
@@ -57,7 +61,7 @@ class GamesList extends PureComponent {
       <Button
         color="primary"
         variant="raised"
-        onClick={createGame}
+        onClick={this.createGame}
         className="create-game"
       >
         Start Game

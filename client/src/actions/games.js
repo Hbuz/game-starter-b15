@@ -42,7 +42,7 @@ export const getGames = () => (dispatch, getState) => {
     .catch(err => console.error(err))
 }
 
-export const joinGame = (gameId) => (dispatch, getState) => {
+export const joinGame = (gameId, avatar) => (dispatch, getState) => {
   const state = getState()
   const jwt = state.currentUser.jwt
 
@@ -51,11 +51,12 @@ export const joinGame = (gameId) => (dispatch, getState) => {
   request
     .post(`${baseUrl}/games/${gameId}/players`)
     .set('Authorization', `Bearer ${jwt}`)
+    .send(avatar)
     .then(_ => dispatch(joinGameSuccess()))
     .catch(err => console.error(err))
 }
 
-export const createGame = () => (dispatch, getState) => {
+export const createGame = (avatar) => (dispatch, getState) => {
   const state = getState()
   const jwt = state.currentUser.jwt
 
@@ -64,6 +65,7 @@ export const createGame = () => (dispatch, getState) => {
   request
     .post(`${baseUrl}/games`)
     .set('Authorization', `Bearer ${jwt}`)
+    .send(avatar)
     .then(result => dispatch(addGame(result.body)))
     .catch(err => console.error(err))
 }

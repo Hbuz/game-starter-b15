@@ -7,7 +7,7 @@ export interface Cell {
 }
 
 export const startingCell: Cell = {
-  cellPathNumber: 0,
+  cellPathNumber: 1,
   current: [],
   hiddenTrap: ''
 }
@@ -23,6 +23,7 @@ const fieldingsCell: Cell = {
   current: [],
   hiddenTrap: ''
 }
+
 
 export const mainBoard: Board = [
   [path(1,[],''), path(2,[],''), path(3,[],''),  fieldingsCell,  fieldingsCell,  fieldingsCell,  fieldingsCell,   fieldingsCell,   fieldingsCell,   fieldingsCell],
