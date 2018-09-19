@@ -21,7 +21,7 @@
     "rootDir": "src/"
   },
   "include": [
-      "src/**/*"
+      "src/**/*", "../client/src/lib/utils.ts"
   ],
   "exclude": [
       "node_modules",

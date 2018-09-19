@@ -78,6 +78,6 @@ export const updateGame = (gameId, board) => (dispatch, getState) => {
     .patch(`${baseUrl}/games/${gameId}`)
     .set('Authorization', `Bearer ${jwt}`)
     .send({ board })
-    .then(_ => dispatch(updateGameSuccess()))
+    .then(_ => dispatch(updateGameSuccess()))   //_ is the game returned from the server
     .catch(err => console.error(err))
 }

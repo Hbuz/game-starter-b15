@@ -12,10 +12,10 @@ const TopBar = (props) => {
   const { location, history, user } = props
 
   return (
-    <AppBar position="absolute" style={{zIndex:10,backgroundColor:'green'}}>
+    <AppBar position="absolute" style={{zIndex:10}}>
       <Toolbar>
         <Typography variant="title" color="inherit" style={{flex: 1}}>
-          Treasure Hunt
+          Multiplayer Tic Tac Toe
         </Typography>
         
         {
