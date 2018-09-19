@@ -35,7 +35,7 @@ export default class GameController {
       user,
       playerNumber: "player1",
       currentCell: startingCell,
-      avatar: 'default1.png'
+      avatar: './src/lib/images/wizard.png'
     }).save()
 
     const game = await Game.findOneById(entity.id)
@@ -68,7 +68,7 @@ export default class GameController {
       user,
       playerNumber: 'player2',
       currentCell: startingCell,
-      avatar: 'default2.png'
+      avatar: './src/lib/images/halfMummy.png'
     }).save()
 
     io.emit('action', {
@@ -86,11 +86,13 @@ export default class GameController {
     @Param('id') gameId: number,
     // @Body() update: GameUpdate   --> the client don't send anything
   ) {
+
     const game = await Game.findOneById(gameId)
     if (!game) throw new NotFoundError(`Game does not exist`)
 
     const player = await Player.findOne({ user, game })
-    if (!player) throw new ForbiddenError(`You are not part of this game`)
+    console.log("PLAYER FOUND!!!!")
+    if (!player) throw new ForbiddenError(`You are not part of this game`)  //--> commented for test
     if (game.status !== 'started') throw new BadRequestError(`The game is not started yet`)
 
     // if (player.userId !== game.turn) throw new BadRequestError(`It's not your turn`) //FIX ME
@@ -111,12 +113,12 @@ export default class GameController {
         // game.turn = player.symbol === 'x' ? 'o' : 'x'
     //   }
 
-
     //FIX ME!!!
      //ROLL THE DICE
     const newBoardGame: Board = selectCell(game, player)  //Removing player from current cell
-    
+        
     const score: Dice = rollDice()
+    
     game.dice = score
 
     const newPathCell: number = player.currentCell.cellPathNumber + score[0] + score[1]
@@ -127,7 +129,7 @@ export default class GameController {
     } else {
       player.currentCell.cellPathNumber = newPathCell
     }
-
+    
     game.board = moveToNewCell(newBoardGame, player)  //Add player to the calculated cell
 
     // const winner = calculateWinner(game.board, player.currentCell.cellPathNumber)
@@ -136,15 +138,15 @@ export default class GameController {
 
     // game.board = update.board
 
-    // await game.save()
     await game.save()
+
+    console.log("THE GAME: "+JSON.stringify(game))
 
     io.emit('action', {
       type: 'UPDATE_GAME',
       payload: game
     })
 
-    // return game
     return game
   }
 
@@ -172,19 +174,19 @@ const selectCell = (game, player: Player): Board=> {  //selectedCell is current 
       if(cell.cellPathNumber === player.currentCell.cellPathNumber){
         const index: number = cell.current.indexOf(player)//Get index of player in the current cell
         cell.current.splice(index, 1) //remove player from cell
-        return cell 
       }
+      return cell 
     })
   })
 }
 
-const moveToNewCell = (game, player: Player): Board=> {  //newCellPlayer is the new cell, after roll the dice
-  return game.board.map((row: Cell[]) => {
+const moveToNewCell = (newBoardGame, player: Player): Board=> {  //newCellPlayer is the new cell, after roll the dice
+  return newBoardGame.map((row: Cell[]) => {
     return row.map((cell: Cell) => {
       if(cell.cellPathNumber === player.currentCell.cellPathNumber){
         cell.current.push(player)
-        return cell 
       }
+      return cell 
     })
   })
 }

@@ -40,5 +40,5 @@ export const mainBoard: Board = [
 
 
 export const rollDice = (): Dice => {
-  return new Number[Math.floor(Math.random() * 6) + 1] [Math.floor(Math.random() * 6) + 1]
+  return [Math.floor(Math.random() * 6) + 1, Math.floor(Math.random() * 6) + 1]
 }

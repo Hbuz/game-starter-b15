@@ -69,6 +69,8 @@ export const createGame = () => (dispatch, getState) => {
 }
 
 export const updateGame = (gameId, board) => (dispatch, getState) => {
+
+  console.log("Inside action")
   const state = getState()
   const jwt = state.currentUser.jwt
 

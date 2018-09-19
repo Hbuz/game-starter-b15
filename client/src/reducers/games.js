@@ -23,6 +23,7 @@ export default (state = null, {type, payload}) => {
       }
 
     case UPDATE_GAMES:
+    console.log("Ciao: "+JSON.stringify(payload))
       return payload.reduce((games, game) => {
         games[game.id] = game
         return games
