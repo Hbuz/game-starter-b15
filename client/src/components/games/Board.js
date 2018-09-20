@@ -39,7 +39,7 @@ const renderCel = (rowIndex, cellIndex, cell, hasTurn) => {
             good = getMedia(player.avatar)
           }
 
-          return (<div className="board-style-img">
+          return (<div className="board-style-player">
             <img src={good} />
           </div>)
         }

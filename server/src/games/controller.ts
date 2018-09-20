@@ -141,6 +141,7 @@ export default class GameController {
       player.currentCell = finishCell.cellPathNumber
       game.winner = player
       game.status = 'finished'
+      
     } else {
       player.currentCell = newPathCell
       game.turn = player.userId === 1 ? 2 : 1
