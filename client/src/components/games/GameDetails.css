@@ -1,6 +1,25 @@
-/*.outer-paper {
-  margin-top: 20px;
-  margin: auto;
-  padding: 20px;
-  width: 60%;
-} */
+.button-style {
+  background-color: #1ed4f4;
+  border: none;
+  color:black;
+  padding: 16px 32px;
+  text-align: center;
+  font-size: 16px;
+  margin: 4px 2px;
+  opacity: 0.6;
+  transition: 0.3s;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+} 
+
+.Font-style{
+  margin-left: 2.5em;
+  color: blue;
+}
+
+
+.Font-styles{
+  margin-left: 2.5em;
+  color: blue;
+}

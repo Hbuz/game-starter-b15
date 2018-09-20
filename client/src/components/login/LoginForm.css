@@ -1,3 +1,8 @@
+* body{
+  background-image: blanchedalmond;
+}
+
 .login-form label {
   display: block;
+  text-align: center;
 }

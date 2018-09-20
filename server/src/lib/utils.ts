@@ -32,7 +32,7 @@ export const mainBoard: Board = [
   [fieldingsCell, fieldingsCell, fieldingsCell,  fieldingsCell,  path(8,[],''),  fieldingsCell,  path(26,[],''),  path(27,[],''),   path(28,[],''), path(29,[],'')],
   [fieldingsCell, fieldingsCell, fieldingsCell,  fieldingsCell,  path(9,[],''),  fieldingsCell,  path(25,[],''),  fieldingsCell,   fieldingsCell,   path(30,[],'')],
   [fieldingsCell, fieldingsCell, path(12,[],''), path(11,[],''), path(10,[],''), fieldingsCell,  path(24,[],''),  path(23,[],''),  fieldingsCell,   path(31,[],'')],
-  [fieldingsCell, fieldingsCell, path(13,[],''), fieldingsCell,  fieldingsCell,  fieldingsCell,  fieldingsCell,   path(22,[],''),  fieldingsCell,   path(32,[],'')],
+  [fieldingsCell, fieldingsCell, path(13,[],'snake'), fieldingsCell,  fieldingsCell,  fieldingsCell,  fieldingsCell,   path(22,[],''),  fieldingsCell,   path(32,[],'')],
   [fieldingsCell, fieldingsCell, path(14,[],''), fieldingsCell,  fieldingsCell,  fieldingsCell,  fieldingsCell,   path(21,[],''),  fieldingsCell,   path(33,[],'')],
   [fieldingsCell, fieldingsCell, path(15,[],''), path(16,[],''), path(17,[],''), path(18,[],''), path(19,[],''),  path(20,[],''),  fieldingsCell,   path(34,[],'')],
   [fieldingsCell, fieldingsCell, fieldingsCell,  fieldingsCell,  fieldingsCell,  fieldingsCell,  fieldingsCell,   fieldingsCell,   fieldingsCell,   path(35,[],'')],
