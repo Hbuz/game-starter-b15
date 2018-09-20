@@ -20,7 +20,7 @@ class GameDetails extends PureComponent {
 
   joinGame = () => this.props.joinGame(this.props.game.id, player2)
 
-  updateGame = () => this.props.updateGame(this.props.game.id, this.props.game.board)
+  updateGame = () => this.props.updateGame(this.props.game.id, this.props.players)
 
   makeMove = (toRow, toCell) => {
     const {game, updateGame} = this.props
@@ -35,7 +35,7 @@ class GameDetails extends PureComponent {
   }
   render() {
     const {game, users, authenticated, userId, players} = this.props
-
+    console.log("PLAYEEEEEEEEEEEEEEEEEEEERRRRRRRRRRRRRRRRR:  "+JSON.stringify(this.props.players))
     if (!authenticated) return (
 			<Redirect to="/login" />
 		)
@@ -46,11 +46,6 @@ class GameDetails extends PureComponent {
     const player = game.players.find(p => p.userId === userId)
 
     const winner = game.winner
-
-      let trap = ''
-    if(players){
-      trap = JSON.stringify(players.player.trap)
-    }
 
     return (<div className="outer-paper">
       <h1>Game #{game.id}</h1>
@@ -64,6 +59,12 @@ class GameDetails extends PureComponent {
       }
 
       {
+        game.status === 'started' &&
+        player && player.userId !== game.turn &&
+        <div>Wait the other player move</div>
+      }
+
+      {
         game.status === 'pending' &&
         game.players.map(p => p.userId).indexOf(userId) === -1 &&
         <button onClick={this.joinGame}>Join Game</button>
@@ -71,7 +72,7 @@ class GameDetails extends PureComponent {
 
       {
         winner &&
-        <p>Winner: {users[winner.userId].firstName}</p>    //CHECK!!!
+        <h1>Winner: {users[winner.userId].firstName}</h1>    //CHECK!!!
       }
 
       {
@@ -82,8 +83,9 @@ class GameDetails extends PureComponent {
         Dice Score 2:--> {game.dice?game.dice[1]:0}</b></em></span>
         </div>
       }
-      <h1>{ trap }</h1>
-
+      {players && players.player.trap.name !== '' && 
+        <h1>alert(Oh No! {players.player.playerNumber} got a { players.player.trap.name }! {players.player.trap.desc})</h1>
+      }
       <hr />
 
       {

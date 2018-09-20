@@ -4,19 +4,9 @@ import User from '../users/entity'
 // import { Game, Player, Board } from './entities'
 import Game from './entity'
 import Player from '../players/entity'
-import { Cell, Dice, rollDice } from '../lib/utils'
+import { Cell, Dice, rollDice, Trap } from '../lib/utils'
 import { Board } from '../lib/utils'
-// import {IsBoard, isValidTransition, calculateWinner, finished} from './logic'
-// import { Validate } from 'class-validator'
 import { io } from '../index'
-
-
-// class GameUpdate {         --> don't need because there is no body
-//   // @Validate(IsBoard, {
-//   //   message: 'Not a valid board'
-//   // })
-//   board: Cell[][]
-// }
 
 
 @JsonController()
@@ -81,11 +71,6 @@ export default class GameController {
     gameNew.board[0][0].current.push(player)
     await gameNew.save()
 
-
-    // io.emit('action', {
-    //   type: 'UPDATE_GAME',
-    //   payload: await Game.findOneById(game.id)
-    // })
     io.emit('action', {
       type: 'UPDATE_GAME',
       payload: gameNew
@@ -99,7 +84,7 @@ export default class GameController {
   async updateGame(
     @CurrentUser() user: User,
     @Param('id') gameId: number,
-    // @Body() update: GameUpdate   --> the client don't send anything
+    @Body() otherPlayertrap: Trap
   ) {
 
     io.emit('action', {
@@ -113,25 +98,9 @@ export default class GameController {
     if (!player) throw new ForbiddenError(`You are not part of this game`)  //--> commented for test
     if (game.status !== 'started') throw new BadRequestError(`The game is not started yet`)
 
-    if (player.userId !== game.turn) throw new BadRequestError(`It's not your turn`)
+    // if (player.userId !== game.turn) throw new BadRequestError(`It's not your turn`)
+    if (player.userId !== game.turn) return game
 
-    //   if (!isValidTransition(player.symbol, game.board, update.board)) {
-    //     throw new BadRequestError(`Invalid move`)
-    //   }
-    // const winner = calculateWinner(update.board) //--> check if the player win (reach the end)
-    //   if (winner) {
-    //     game.winner = winner
-    //     game.status = 'finished'
-    //   }
-    //   else if (finished(update.board)) {
-    //     game.status = 'finished'
-    //   }
-    //   else {
-    // game.turn = player.symbol === 'x' ? 'o' : 'x'
-    //   }
-
-    //FIX ME!!!
-    //ROLL THE DICE
     const newBoardGame: Board = selectCell(game, player)  //Removing player from current cell
 
     const score: Dice = rollDice()
@@ -140,6 +109,7 @@ export default class GameController {
 
     const newPathCell: number = player.currentCell + score[0] + score[1]
     // const newPathCell: number = 13 //UNCOMMENT IF YOU WANT TO TEST THE SNAKE
+    // const newPathCell: number = 19 //UNCOMMENT IF YOU WANT TO TEST THE QUICKSAND
 
     const finishCell = game.board[game.board.length - 1][game.board[game.board.length - 1].length - 1]  //Pick the last cell of 2-dimensional array
 
@@ -150,21 +120,21 @@ export default class GameController {
       game.status = 'finished'  //END OF THE GAME
     } else {
       player.currentCell = newPathCell
-      // game.turn = player.userId === 1 ? 2 : 1
     }
 
     player.save()
 
     const boardAfterMove: Board = moveToNewCell(newBoardGame, player)  //Add player to the calculated cell
 
-    //CHEKC IF THE PLAYER WAS TRAPPED
-    console.log("THE NEW PLAYER AFTER TRAP: " + JSON.stringify(player))
     game.board = moveIfTrapped(boardAfterMove, player)
 
-    // const winner = calculateWinner(game.board, player.currentCell.cellPathNumber)
 
-    game.turn = player.userId === 1 ? 2 : 1
-
+    if(otherPlayertrap && otherPlayertrap.id === 2){
+      game.turn = player.userId === 1 ? 1 : 2
+    } else {
+      game.turn = player.userId === 1 ? 2 : 1
+    }
+    
     await game.save()
 
     io.emit('action', {
@@ -204,11 +174,7 @@ const selectCell = (game, player: Player): Board => {  //selectedCell is current
             index = i 
           }
         }
-        // const indexW: number = cell.current.indexOf(player)//Get index of player in the current cell
-        console.log("INDEX TO REMOVE: " + index)
-        console.log("CURRENT CELL: " + cell.current)
         cell.current.splice(index, 1) //remove player from cell
-        console.log("AFTER SPLICE: " + cell.current)
       }
       return cell
     })
@@ -221,7 +187,7 @@ const moveToNewCell = (newBoardGame, player: Player): Board => {  //newCellPlaye
       if (cell.cellPathNumber === player.currentCell) {
         if (cell.hiddenTrap) {
           player.trap = cell.hiddenTrap
-          player.currentCell = player.currentCell - trapSwitch(cell.hiddenTrap)
+          player.currentCell = player.currentCell - trapSwitch(cell.hiddenTrap.id)
           player.save()
 
           io.emit('action', {
@@ -242,9 +208,7 @@ const moveToNewCell = (newBoardGame, player: Player): Board => {  //newCellPlaye
 const moveIfTrapped = (newBoardTrapped, player: Player): Board => {
   return newBoardTrapped.map((row: Cell[]) => {
     return row.map((cell: Cell) => {
-      console.log("EVERYTHING: " + cell.cellPathNumber + "      " + JSON.stringify(player))
       if (cell.cellPathNumber === player.currentCell && !cell.current.includes(player)) { //IF THE PLAYER WAS TRAPPED
-        console.log("I AM INSIDE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         cell.current.push(player)                                                   //HERE WILL BE MOVED TO THE RIGHT CELL
       }
       return cell
@@ -253,11 +217,14 @@ const moveIfTrapped = (newBoardTrapped, player: Player): Board => {
 }
 
 
-const trapSwitch = (hiddenTrap: string): number => {
+const trapSwitch = (hiddenTrap: number): number => {
   let cellToRemove = 0
   switch (hiddenTrap) {
-    case 'snake':
+    case 1: //Snake
       cellToRemove = 5  //number of cell to go back
+      break
+      case 2: //quicksand
+      cellToRemove = 0  //number of cell to go back
       break
     default:
       cellToRemove = 0

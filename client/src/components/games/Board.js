@@ -1,6 +1,7 @@
 import React from 'react'
 import './Board.css'
-import img from '../../images/snake.ico'
+import snake from '../../images/snake.ico'
+import quicksand from '../../images/quicksand.png'
 
 
 const renderCel = (rowIndex, cellIndex, cell, hasTurn) => {
@@ -29,7 +30,8 @@ const renderCel = (rowIndex, cellIndex, cell, hasTurn) => {
         )}
       </div>
         : <div></div>}
-      {cell.cellPathNumber === 13 ? <div className="board-style-img">{cell.cellPathNumber}<img src={img} /> </div> : <div></div>}
+      {cell.hiddenTrap.id === 1 ? <div className="board-style-img">{cell.cellPathNumber}<img src={snake} /> </div> : <div></div>}
+      {cell.hiddenTrap.id === 2 ? <div className="board-style-img">{cell.cellPathNumber}<img src={quicksand} /> </div> : <div></div>}
     </div>
   )
 }
