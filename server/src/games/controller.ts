@@ -1,7 +1,5 @@
-// import { JsonController, Authorized, CurrentUser, Post, Param, BadRequestError, HttpCode, NotFoundError, ForbiddenError, Get, Body, Patch } from 'routing-controllers'
 import { JsonController, CurrentUser, Post, Param, BadRequestError, HttpCode, Patch, Get, NotFoundError, ForbiddenError, Body } from 'routing-controllers'
 import User from '../users/entity'
-// import { Game, Player, Board } from './entities'
 import Game from './entity'
 import Player from '../players/entity'
 import { Cell, Dice, rollDice, Trap } from '../lib/utils'

@@ -4,8 +4,6 @@ import {Redirect} from 'react-router-dom'
 import {getGames, joinGame, updateGame} from '../../actions/games'
 import {getUsers} from '../../actions/users'
 import {userId} from '../../jwt'
-import Paper from 'material-ui/Paper'
-// import Button from 'material-ui/Button'
 import Board from './Board'
 import './GameDetails.css'
 import player2 from '../../images/player2.png'
@@ -22,20 +20,8 @@ class GameDetails extends PureComponent {
 
   updateGame = () => this.props.updateGame(this.props.game.id, this.props.players)
 
-  makeMove = (toRow, toCell) => {
-    const {game, updateGame} = this.props
-
-    const board = game.board.map(
-      (row, rowIndex) => row.map((cell, cellIndex) => {
-        if (rowIndex === toRow && cellIndex === toCell) return game.turn
-        else return cell
-      })
-    )
-    updateGame(game.id, board)
-  }
   render() {
     const {game, users, authenticated, userId, players} = this.props
-    console.log("PLAYEEEEEEEEEEEEEEEEEEEERRRRRRRRRRRRRRRRR:  "+JSON.stringify(this.props.players))
     if (!authenticated) return (
 			<Redirect to="/login" />
 		)
@@ -72,7 +58,7 @@ class GameDetails extends PureComponent {
 
       {
         winner &&
-        <h1>Winner: {users[winner.userId].firstName}</h1>    //CHECK!!!
+        <h1>Winner: {users[winner.userId].firstName}</h1>
       }
 
       {
@@ -81,16 +67,20 @@ class GameDetails extends PureComponent {
         <button onClick={this.updateGame} className="button-style">Dice</button>
          <span className="Font-style"><em><b>Dice Score 1:--> {game.dice?game.dice[0]:0}</b></em></span><span className="Font-styles"><em><b>
         Dice Score 2:--> {game.dice?game.dice[1]:0}</b></em></span>
+        {player && player.currentCell &&
+        <span><h2>Current cell: {player.currentCell}</h2></span>}
         </div>
       }
       {players && players.player.trap.name !== '' && 
-        <h1>alert(Oh No! {players.player.playerNumber} got a { players.player.trap.name }! {players.player.trap.desc})</h1>
+        <h1>{players.player.playerNumber} got a { players.player.trap.name }! {players.player.trap.desc}</h1>
+        // <h1>{alert(`Oh No! ${players.player.playerNumber} got a ${ players.player.trap.name }! ${players.player.trap.desc}`}</h1>
+
       }
       <hr />
 
       {
         game.status !== 'pending' &&
-        <Board board={game.board} makeMove={this.makeMove} />
+        <Board board={game.board} />
       }
     
     </div>)
