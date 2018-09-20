@@ -4,8 +4,6 @@ import img from '../../images/snake.ico'
 
 
 const renderCel = (rowIndex, cellIndex, cell, hasTurn) => {
-  const a1 = cell.current[0] ? 'P1' : ''
-  const a2 = cell.current[1] ? 'P2' : ''
   return (
 
     <div
@@ -16,22 +14,22 @@ const renderCel = (rowIndex, cellIndex, cell, hasTurn) => {
       {cell.cellPathNumber ? <div className="board-style">
         {cell.cellPathNumber}
         {cell.current.map(player => {
-          let good = ''
+          let playerImage = ''
           if (typeof player.avatar === 'string') {
-            good = getMedia(JSON.parse(player.avatar))
+            playerImage = getMedia(JSON.parse(player.avatar))
           } else {
-            good = getMedia(player.avatar)
+            playerImage = getMedia(player.avatar)
           }
 
           return (<div className="board-style-img">
-            <img src={good} />
+            <img src={playerImage} />
           </div>)
         }
 
         )}
       </div>
         : <div></div>}
-      {cell.cellPathNumber === 13 ? <div className="board-style-img">{cell.cellPathNumber}<img src={img} /> <span>{a1}</span><span>{a2}</span></div> : <div></div>}
+      {cell.cellPathNumber === 13 ? <div className="board-style-img">{cell.cellPathNumber}<img src={img} /> </div> : <div></div>}
     </div>
   )
 }
