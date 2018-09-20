@@ -1,8 +1,36 @@
 * body{
-  background-image: blanchedalmond;
-}
+  background-color:#f9ebeb
+  }
 
 .login-form label {
   display: block;
   text-align: center;
+}
+
+.Font-style{
+  font-family:Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  margin-right:40px;
+  
+  
+  
+}
+
+.Font-style-pass{
+  font-family:Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  margin-right:34px;
+  padding:10px;
+ 
+  
+}
+
+.Button-style{
+  font-family:Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  margin-top:20px;
+  margin-left: 70px;
 }
