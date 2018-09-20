@@ -11,7 +11,6 @@ import './GameDetails.css'
 import player2 from '../../images/player2.png'
 
 class GameDetails extends PureComponent {
-
   componentWillMount() {
     if (this.props.authenticated) {
       if (this.props.game === null) this.props.getGames()
@@ -76,16 +75,16 @@ class GameDetails extends PureComponent {
         winner &&
         <p>Winner: {users[winner].firstName}</p>    //CHECK!!!
       }
-        
-      {/* <Button color="primary" className="tile" style={{backgroundColor:"#96B7F0"}} onClick={this.updateGame} >Dice</Button> */}
-      <button onClick={this.updateGame} >Dice</button>
-      {/* <h3>{game.dice[0]}</h3>
-      <h3>{game.dice[1]}</h3> */}
 
+      {
+        game.status === 'started' &&
+        <div>   
+        <button onClick={this.updateGame} className="button-style">Dice</button>
+         <span className="Font-style"><em><b>Dice Score 1:--> {game.dice?game.dice[0]:0}</b></em></span><span className="Font-styles"><em><b>
+        Dice Score 2:--> {game.dice?game.dice[1]:0}</b></em></span>
+        </div>
+      }
       <h1>{ trap }</h1>
-
-      <h3>Dice 1: {game.dice?game.dice[0]:0}</h3>
-      <h3>Dice 2: {game.dice?game.dice[1]:0}</h3>
 
       <hr />
 
