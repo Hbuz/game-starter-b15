@@ -5,9 +5,10 @@ import {getGames, joinGame, updateGame} from '../../actions/games'
 import {getUsers} from '../../actions/users'
 import {userId} from '../../jwt'
 import Paper from 'material-ui/Paper'
-import Button from 'material-ui/Button'
+// import Button from 'material-ui/Button'
 import Board from './Board'
 import './GameDetails.css'
+import player2 from '../../images/player2.png'
 
 class GameDetails extends PureComponent {
 
@@ -18,7 +19,9 @@ class GameDetails extends PureComponent {
     }
   }
 
-  joinGame = () => this.props.joinGame(this.props.game.id)
+  joinGame = () => this.props.joinGame(this.props.game.id, player2)
+
+  updateGame = () => this.props.updateGame(this.props.game.id, this.props.game.board)
 
   makeMove = (toRow, toCell) => {
     const {game, updateGame} = this.props
@@ -47,7 +50,7 @@ class GameDetails extends PureComponent {
       .filter(p => p.symbol === game.winner)
       .map(p => p.userId)[0]
 
-    return (<Paper className="outer-paper">
+    return (<div className="outer-paper">
       <h1>Game #{game.id}</h1>
 
       <p>Status: {game.status}</p>
@@ -69,8 +72,13 @@ class GameDetails extends PureComponent {
         <p>Winner: {users[winner].firstName}</p>
       }
         
-      <Button variant="outlined" color="primary" className="tile" style={{backgroundColor:"#96B7F0"}}>Dice</Button>
-    
+      {/* <Button color="primary" className="tile" style={{backgroundColor:"#96B7F0"}} onClick={this.updateGame} >Dice</Button> */}
+      <button onClick={this.updateGame} >Dice</button>
+      {/* <h3>{game.dice[0]}</h3>
+      <h3>{game.dice[1]}</h3> */}
+      <h3>Dice 1: {game.dice?game.dice[0]:0}</h3>
+      <h3>Dice 2: {game.dice?game.dice[1]:0}</h3>
+
       <hr />
 
       {
@@ -78,7 +86,7 @@ class GameDetails extends PureComponent {
         <Board board={game.board} makeMove={this.makeMove} />
       }
     
-    </Paper>)
+    </div>)
   }
 }
 

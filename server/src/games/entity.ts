@@ -31,7 +31,7 @@ export default class Game extends BaseEntity {
   @Column('char', { length: 1, nullable: true })
   winner: Symbol */
   @Column({ nullable: true })
-  turn: string
+  turn: number
 
   @Column('json', { nullable: true })
   winner: Player

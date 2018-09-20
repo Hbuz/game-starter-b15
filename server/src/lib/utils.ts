@@ -7,7 +7,7 @@ export interface Cell {
 }
 
 export const startingCell: Cell = {
-  cellPathNumber: 0,
+  cellPathNumber: 1,
   current: [],
   hiddenTrap: ''
 }
@@ -23,6 +23,7 @@ const fieldingsCell: Cell = {
   current: [],
   hiddenTrap: ''
 }
+
 
 export const mainBoard: Board = [
   [path(1,[],''), path(2,[],''), path(3,[],''),  fieldingsCell,  fieldingsCell,  fieldingsCell,  fieldingsCell,   fieldingsCell,   fieldingsCell,   fieldingsCell],
@@ -40,5 +41,5 @@ export const mainBoard: Board = [
 
 
 export const rollDice = (): Dice => {
-  return new Number[Math.floor(Math.random() * 6) + 1] [Math.floor(Math.random() * 6) + 1]
+  return [Math.floor(Math.random() * 6) + 1, Math.floor(Math.random() * 6) + 1]
 }
