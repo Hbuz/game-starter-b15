@@ -27,4 +27,7 @@ export default class Player extends BaseEntity {
 
   @Column()
   avatar: string  //url to image
+
+  @Column({ nullable: true })
+  trap: string
 }
