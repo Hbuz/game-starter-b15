@@ -45,9 +45,7 @@ class GameDetails extends PureComponent {
 
     const player = game.players.find(p => p.userId === userId)
 
-    const winner = game.players
-      .filter(p => p.symbol === game.winner)
-      .map(p => p.userId)[0]
+    const winner = game.winner
 
       let trap = ''
     if(players){
@@ -73,7 +71,7 @@ class GameDetails extends PureComponent {
 
       {
         winner &&
-        <p>Winner: {users[winner].firstName}</p>    //CHECK!!!
+        <p>Winner: {users[winner.userId].firstName}</p>    //CHECK!!!
       }
 
       {

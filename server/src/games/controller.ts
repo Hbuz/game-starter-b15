@@ -102,11 +102,9 @@ export default class GameController {
     // @Body() update: GameUpdate   --> the client don't send anything
   ) {
 
-
     io.emit('action', {
       type: 'CLEAR_PLAYER'
     })
-
 
     const game = await Game.findOneById(gameId)
     if (!game) throw new NotFoundError(`Game does not exist`)
@@ -199,8 +197,18 @@ const selectCell = (game, player: Player): Board => {  //selectedCell is current
   return game.board.map((row: Cell[]) => {
     return row.map((cell: Cell) => {
       if (cell.cellPathNumber === player.currentCell) {
-        const index: number = cell.current.indexOf(player)//Get index of player in the current cell
+
+        let index: number = 0
+        for(let i=0; i<cell.current.length; i++){
+          if (cell.current[i].id === player.id) {
+            index = i 
+          }
+        }
+        // const indexW: number = cell.current.indexOf(player)//Get index of player in the current cell
+        console.log("INDEX TO REMOVE: " + index)
+        console.log("CURRENT CELL: " + cell.current)
         cell.current.splice(index, 1) //remove player from cell
+        console.log("AFTER SPLICE: " + cell.current)
       }
       return cell
     })
