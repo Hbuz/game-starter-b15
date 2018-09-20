@@ -1,4 +1,33 @@
 .board-tile {
-  height: 50px;
-  width: 50px;
+  border-style: solid;
+  border-width: 1px;
+  text-align:center;
+  height: 59px;
+  width: 105px;
+  float:left;
+  background-color:lightblue
+ }
+
+.board-style {
+
+  text-align:center;
+  height: 100%;
+  background-color:pink;
 }
+
+.board-style-img img{
+ position: relative;
+ z-index: 1;
+ height:58px;
+ width:56px;
+ bottom:57px;
+}
+
+.board-style-player img{
+  position: relative;
+  z-index: 1;
+  height:51px;
+  width:64px;
+  bottom:34px;
+ }
+

@@ -4,6 +4,8 @@ import {logout} from './users'
 import {isExpired} from '../jwt'
 
 export const ADD_GAME = 'ADD_GAME'
+export const UPDATE_PLAYER = 'UPDATE_PLAYER'
+export const CLEAR_PLAYER = 'CLEAR_PLAYER'
 export const UPDATE_GAME = 'UPDATE_GAME'
 export const UPDATE_GAMES = 'UPDATE_GAMES'
 export const JOIN_GAME_SUCCESS = 'JOIN_GAME_SUCCESS'
@@ -42,7 +44,7 @@ export const getGames = () => (dispatch, getState) => {
     .catch(err => console.error(err))
 }
 
-export const joinGame = (gameId) => (dispatch, getState) => {
+export const joinGame = (gameId, avatar) => (dispatch, getState) => {
   const state = getState()
   const jwt = state.currentUser.jwt
 
@@ -51,11 +53,12 @@ export const joinGame = (gameId) => (dispatch, getState) => {
   request
     .post(`${baseUrl}/games/${gameId}/players`)
     .set('Authorization', `Bearer ${jwt}`)
+    .send(avatar)
     .then(_ => dispatch(joinGameSuccess()))
     .catch(err => console.error(err))
 }
 
-export const createGame = () => (dispatch, getState) => {
+export const createGame = (avatar) => (dispatch, getState) => {
   const state = getState()
   const jwt = state.currentUser.jwt
 
@@ -64,11 +67,14 @@ export const createGame = () => (dispatch, getState) => {
   request
     .post(`${baseUrl}/games`)
     .set('Authorization', `Bearer ${jwt}`)
+    .send(avatar)
     .then(result => dispatch(addGame(result.body)))
     .catch(err => console.error(err))
 }
 
 export const updateGame = (gameId, board) => (dispatch, getState) => {
+
+  console.log("Inside action")
   const state = getState()
   const jwt = state.currentUser.jwt
 
@@ -78,6 +84,6 @@ export const updateGame = (gameId, board) => (dispatch, getState) => {
     .patch(`${baseUrl}/games/${gameId}`)
     .set('Authorization', `Bearer ${jwt}`)
     .send({ board })
-    .then(_ => dispatch(updateGameSuccess()))
+    .then(_ => dispatch(updateGameSuccess()))   //_ is the game returned from the server
     .catch(err => console.error(err))
 }

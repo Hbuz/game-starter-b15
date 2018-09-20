@@ -31,8 +31,6 @@ class GameDetails extends PureComponent {
     updateGame(game.id, board)
   }
 
-
-
   render() {
     const {game, users, authenticated, userId} = this.props
 
@@ -56,7 +54,8 @@ class GameDetails extends PureComponent {
 
       {
         game.status === 'started' &&
-        player && player.symbol === game.turn &&
+        // player && player.symbol === game.turn &&
+        player && player.userId === game.turn &&
         <div>It's your turn!</div>
       }
 
