@@ -4,6 +4,8 @@ import {logout} from './users'
 import {isExpired} from '../jwt'
 
 export const ADD_GAME = 'ADD_GAME'
+export const UPDATE_PLAYER = 'UPDATE_PLAYER'
+export const CLEAR_PLAYER = 'CLEAR_PLAYER'
 export const UPDATE_GAME = 'UPDATE_GAME'
 export const UPDATE_GAMES = 'UPDATE_GAMES'
 export const JOIN_GAME_SUCCESS = 'JOIN_GAME_SUCCESS'

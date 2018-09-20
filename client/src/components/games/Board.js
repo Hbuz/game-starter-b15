@@ -17,22 +17,6 @@ const renderCel = (rowIndex, cellIndex, cell, hasTurn) => {
         {cell.cellPathNumber}
         {cell.current.map(player => {
           let good = ''
-          // if (typeof player.avatar === 'object') {
-          //   const k = Object.keys(player.avatar)
-          //   console.log(player.avatar[k])
-          //   const kk = Object.keys((player.avatar[k]))
-          //   const kkk = Object.keys((player.avatar[k][kk]))
-          //   good = k + '.' + kk + '.' + kkk
-          // } else if (typeof player.avatar === 'string') {
-          //   const parsed = JSON.parse(player.avatar)
-          //   console.log("PARSED: " + JSON.stringify(parsed))
-          //   const k = Object.keys(parsed)
-          //   console.log(k)
-          //   const kk = Object.keys((parsed[k]))
-          //   console.log(kk)
-          //   const kkk = Object.keys((parsed[k][kk]))
-          //   good = k + '.' + kk + '.' + kkk
-          // }
           if (typeof player.avatar === 'string') {
             good = getMedia(JSON.parse(player.avatar))
           } else {

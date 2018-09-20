@@ -34,7 +34,7 @@ class GameDetails extends PureComponent {
     updateGame(game.id, board)
   }
   render() {
-    const {game, users, authenticated, userId} = this.props
+    const {game, users, authenticated, userId, players} = this.props
 
     if (!authenticated) return (
 			<Redirect to="/login" />
@@ -48,6 +48,11 @@ class GameDetails extends PureComponent {
     const winner = game.players
       .filter(p => p.symbol === game.winner)
       .map(p => p.userId)[0]
+
+      let trap = ''
+    if(players){
+      trap = JSON.stringify(players.player.trap)
+    }
 
     return (<div className="outer-paper">
       <h1>Game #{game.id}</h1>
@@ -68,8 +73,7 @@ class GameDetails extends PureComponent {
 
       {
         winner &&
-        <p>Winner: {users[winner].firstName}</p>
-        
+        <p>Winner: {users[winner].firstName}</p>    //CHECK!!!
       }
         
       {/* <Button color="primary" className="tile" style={{backgroundColor:"#96B7F0"}} onClick={this.updateGame} >Dice</Button> */}
@@ -81,7 +85,9 @@ class GameDetails extends PureComponent {
       
       {/*{game.turn === player.userId ? <div></div>:<div>prompt("This is not your chance")</div>}*/}
 
-      <hr />
+      <h1>{ trap }</h1>
+
+           <hr />
 
       {
         game.status !== 'pending' &&
@@ -96,7 +102,8 @@ const mapStateToProps = (state, props) => ({
   authenticated: state.currentUser !== null,
   userId: state.currentUser && userId(state.currentUser.jwt),
   game: state.games && state.games[props.match.params.id],
-  users: state.users
+  users: state.users,
+  players: state.players
 })
 
 const mapDispatchToProps = {
