@@ -6,8 +6,7 @@ import { getUsers } from '../../actions/users'
 import { userId } from '../../jwt'
 import Board from './Board'
 import './GameDetails.css'
-import player2 from '../../images/player2.png'
-import { getMedia } from '../../lib/utils'
+import { getMedia, getRandomCharacter } from '../../lib/utils'
 import Grid from 'material-ui/Grid';
 
 
@@ -19,11 +18,14 @@ class GameDetails extends PureComponent {
     }
   }
 
-  joinGame = () => this.props.joinGame(this.props.game.id, player2)
+  
+
+  joinGame = () => this.props.joinGame(this.props.game.id, getRandomCharacter())
 
   updateGame = () => this.props.updateGame(this.props.game.id, this.props.players)
 
   render() {
+
     const { game, users, authenticated, userId, players } = this.props
     if (!authenticated) return (
       <Redirect to="/login" />
@@ -40,22 +42,21 @@ class GameDetails extends PureComponent {
       <Grid
         container
         spacing={0}
-        // className={classes.demo}
         alignItems='center'
         direction='raw'
         justify='space-evenly'
       >
         <Grid item xs={1}>
-          <Grid container>
-            <Grid>
+          <Grid container direction='column' alignItems='center' justify='center'>
+            <Grid item>
               {game && game.players && game.players.length > 0 && game.players[0].playerNumber === 'player1' &&
-                <img width="300" height="350" src={getMedia(JSON.parse(game.players[0].avatar))} />
+                <img width="400" height="400" src={getMedia(JSON.parse(game.players[0].avatar))} />
               }
               {game && game.players && game.players.length > 1 && game.players[1].playerNumber === 'player1' &&
-                <img width="300" height="350" src={getMedia(JSON.parse(game.players[1].avatar))} />
+                <img width="400" height="400" src={getMedia(JSON.parse(game.players[1].avatar))} />
               }
             </Grid>
-            <Grid><h1>PLAYER 1</h1></Grid>
+            <Grid item><h1>PLAYER 1</h1></Grid>
           </Grid>
         </Grid>
         <Grid item xs={9}>
@@ -79,12 +80,14 @@ class GameDetails extends PureComponent {
             {
               game.status === 'pending' &&
               game.players.map(p => p.userId).indexOf(userId) === -1 &&
-              <button onClick={this.joinGame}>Join Game</button>
+              <button onClick={this.joinGame()}>Join Game</button>
             }
 
             {
               winner &&
-              <h1>Winner: {users[winner.userId].firstName}</h1>
+              <h1>Winner: {users[winner.userId].firstName} 
+                {alert(`${users[winner.userId].firstName} WIN!!!`)}
+              </h1>
             }
 
             {
@@ -99,8 +102,6 @@ class GameDetails extends PureComponent {
             }
             {players && players.player.trap.name !== '' &&
               <h1>{players.player.playerNumber} got a {players.player.trap.name}! {players.player.trap.desc}</h1>
-              // <h1>{alert(`Oh No! ${players.player.playerNumber} got a ${ players.player.trap.name }! ${players.player.trap.desc}`}</h1>
-
             }
             <hr />
 
@@ -113,16 +114,16 @@ class GameDetails extends PureComponent {
 
         </Grid>
         <Grid item xs={2}>
-          <Grid container>>
-            <Grid>
+          <Grid container direction='column' alignItems='center' justify='center'>
+            <Grid item>
               {game && game.players && game.players.length > 1 && game.players[0].playerNumber === 'player2' &&
-                <img width="450" height="450" src={getMedia(JSON.parse(game.players[0].avatar))} />
+                <img width="400" height="400" src={getMedia(JSON.parse(game.players[0].avatar))} />
               }
               {game && game.players && game.players.length > 1 && game.players[1].playerNumber === 'player2' &&
-                <img width="450" height="450" src={getMedia(JSON.parse(game.players[1].avatar))} />
+                <img width="400" height="400" src={getMedia(JSON.parse(game.players[1].avatar))} />
               }
             </Grid>
-            <Grid><h1>PLAYER 2</h1></Grid>
+            <Grid item><h1>PLAYER 2</h1></Grid>
           </Grid>
         </Grid>
       </Grid>
