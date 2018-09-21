@@ -4,6 +4,7 @@ import snake from '../../images/snake.ico'
 import quicksand from '../../images/quicksand.png'
 import {getMedia} from '../../lib/utils'
 import treasure from '../../images/treasure.png'
+import start from '../../images/start.png'
 import shortcut from '../../images/shortcut.png'
 
 
@@ -19,15 +20,11 @@ const renderCel = (rowIndex, cellIndex, cell, hasTurn) => {
         <strong>{cell.cellPathNumber}</strong>
         {cell.current.map(player => {
           // let playerImage = ''
-          // if (typeof player.avatar === 'string') {
-          //   playerImage = getMedia(JSON.parse(player.avatar))
-          // } else {
-          //   playerImage = getMedia(player.avatar)
-          // }
+          // if(player.avatar){
           const playerImage = typeof player.avatar === 'string' ? getMedia(JSON.parse(player.avatar)) : getMedia(player.avatar)
-          
+          // } 
           return (<div className="board-style-img">
-            <img src={playerImage} />
+            <img src={playerImage} alt="no image found" />
           </div>)
         
         }
@@ -38,6 +35,7 @@ const renderCel = (rowIndex, cellIndex, cell, hasTurn) => {
       {cell.hiddenTrap.id === 1 ? <div className="board-style-img"><img src={snake} /> </div> : <div></div>}
       {cell.hiddenTrap.id === 2 ? <div className="board-style-img"><img src={quicksand} /> </div> : <div></div>}
       {cell.hiddenTrap.id === 3 ? <div className="board-style-img"><img src={shortcut} /> </div> : <div></div>}
+      {cell.cellPathNumber === 1 ? <div className="board-style-start"><img src={start} /> </div> : <div></div>}
       {cell.cellPathNumber === 36 ? <div className="board-style-final"><img src={treasure} /> </div> : <div></div>}
    
     </div>
@@ -51,11 +49,3 @@ export default ({ board }) => board.map((cells, rowIndex) =>
     {cells.map((cell, cellIndex) => renderCel(rowIndex, cellIndex, cell, false))}
   </div>
 )
-
-
-/* const getMedia = (avatar) => {
-  const url = Object.keys(avatar)
-  const code = Object.keys((avatar[url]))
-  const ext = Object.keys((avatar[url][code]))
-  return url + '.' + code + '.' + ext
-} */
