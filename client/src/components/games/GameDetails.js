@@ -66,12 +66,12 @@ class GameDetails extends PureComponent {
 
       {
         game.status === 'started' &&
-        <div>
-          <button onClick={this.updateGame} className="button-style">Dice</button>
-          <span className="Font-style"><em><b>Dice Score 1:--> {game.dice ? game.dice[0] : 0}</b></em></span><span className="Font-styles"><em><b>
-            Dice Score 2:--> {game.dice ? game.dice[1] : 0}</b></em></span>
-          {player && player.currentCell &&
-            <span><h2>Previous cell: {player.currentCell}</h2></span>}
+        <div>   
+        <button onClick={this.updateGame} className="button-style">Dice</button>
+         <span className="Font-style-Dice"><em><b>Dice Score 1:<span ClassName="words"> {game.dice?game.dice[0]:0}</span></b></em></span><span className="Font-styles-Dice2"><em><b>
+        Dice Score 2: {game.dice?game.dice[1]:0}</b></em></span>
+        {player && player.currentCell &&
+        <span><h2>Previous cell: {player.currentCell}</h2></span>}
         </div>
       }
       {players && players.player.trap.name !== '' &&

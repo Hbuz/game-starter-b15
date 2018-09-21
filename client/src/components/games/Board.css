@@ -1,11 +1,11 @@
 .board-tile {
-  border-style: solid;
+  border-style:solid;
   border-width: 1px;
   text-align:center;
   height: 59px;
   width: 105px;
   float:left;
-  background-color:lightblue
+  background-color:rgba(0,0,0,0.3);
  }
 
 .board-style {
@@ -19,7 +19,7 @@
  position: relative;
  z-index: 1;
  height:58px;
- width:56px;
+ width:58px;
  bottom:57px;
 }
 
@@ -31,4 +31,10 @@
   bottom:34px;
  }
 
- 
+ .board-style-final img{
+  position: relative;
+  z-index: 1;
+  height:38px;
+  width:49px;
+  bottom:39px;
+ }
