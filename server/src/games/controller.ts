@@ -1,4 +1,4 @@
-import { JsonController, CurrentUser, Post, Param, BadRequestError, HttpCode, Patch, Get, NotFoundError, ForbiddenError, Body } from 'routing-controllers'
+import { JsonController, CurrentUser, Post, Param, BadRequestError, HttpCode, Patch, Get, NotFoundError, ForbiddenError, Body, Authorized } from 'routing-controllers'
 import User from '../users/entity'
 import Game from './entity'
 import Player from '../players/entity'
@@ -10,7 +10,7 @@ import { io } from '../index'
 @JsonController()
 export default class GameController {
 
-  // @Authorized()  --> COMMENTED FOR TESTS
+  @Authorized()
   @Post('/games')
   @HttpCode(201)
   async createGame(
@@ -42,7 +42,7 @@ export default class GameController {
   }
 
 
-  // @Authorized()  --> COMMENTED FOR TESTS
+  @Authorized()
   @Post('/games/:id([0-9]+)/players') //--> for joining game
   @HttpCode(201)
   async joinGame(
@@ -106,17 +106,13 @@ export default class GameController {
     game.dice = score
 
     const newPathCell: number = player.currentCell + score[0] + score[1]
-    // const newPathCell: number = 13 //UNCOMMENT IF YOU WANT TO TEST THE SNAKE
-    // const newPathCell: number = 19 //UNCOMMENT IF YOU WANT TO TEST THE QUICKSAND
-    // const newPathCell: number = 19 //UNCOMMENT IF YOU WANT TO TEST THE QUICKSAND
 
     const finishCell = game.board[game.board.length - 1][game.board[game.board.length - 1].length - 1]  //Pick the last cell of 2-dimensional array
 
-    //CHECK IF WON
     if (newPathCell >= finishCell.cellPathNumber) {
       player.currentCell = finishCell.cellPathNumber
       game.winner = player
-      game.status = 'finished'  //END OF THE GAME
+      game.status = 'finished'
     } else {
       player.currentCell = newPathCell
     }
@@ -145,7 +141,7 @@ export default class GameController {
   }
 
 
-  // @Authorized()  --> COMMENTED FOR TESTS
+  @Authorized()
   @Get('/games/:id([0-9]+)')
   getGame(
     @Param('id') id: number
@@ -154,7 +150,7 @@ export default class GameController {
   }
 
 
-  // @Authorized()  --> COMMENTED FOR TESTS
+  @Authorized()
   @Get('/games')
   getGames() {
     return Game.find()

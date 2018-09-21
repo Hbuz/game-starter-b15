@@ -6,7 +6,6 @@ import { getUsers } from '../../actions/users'
 import { userId } from '../../jwt'
 import Board from './Board'
 import './GameDetails.css'
-import player2 from '../../images/player2.png'
 import { getMedia, getRandomCharacter } from '../../lib/utils'
 import Grid from 'material-ui/Grid';
 
@@ -43,7 +42,6 @@ class GameDetails extends PureComponent {
       <Grid
         container
         spacing={0}
-        // className={classes.demo}
         alignItems='center'
         direction='raw'
         justify='space-evenly'
@@ -52,10 +50,10 @@ class GameDetails extends PureComponent {
           <Grid container direction='column' alignItems='center' justify='center'>
             <Grid item>
               {game && game.players && game.players.length > 0 && game.players[0].playerNumber === 'player1' &&
-                <img width="300" height="350" src={getMedia(JSON.parse(game.players[0].avatar))} />
+                <img width="400" height="400" src={getMedia(JSON.parse(game.players[0].avatar))} />
               }
               {game && game.players && game.players.length > 1 && game.players[1].playerNumber === 'player1' &&
-                <img width="300" height="350" src={getMedia(JSON.parse(game.players[1].avatar))} />
+                <img width="400" height="400" src={getMedia(JSON.parse(game.players[1].avatar))} />
               }
             </Grid>
             <Grid item><h1>PLAYER 1</h1></Grid>
@@ -88,7 +86,7 @@ class GameDetails extends PureComponent {
             {
               winner &&
               <h1>Winner: {users[winner.userId].firstName} 
-                {/* {alert(`${users[winner.userId].firstName} WIN`)} */}
+                {alert(`${users[winner.userId].firstName} WIN!!!`)}
               </h1>
             }
 
@@ -104,8 +102,6 @@ class GameDetails extends PureComponent {
             }
             {players && players.player.trap.name !== '' &&
               <h1>{players.player.playerNumber} got a {players.player.trap.name}! {players.player.trap.desc}</h1>
-              // <h1>{alert(`Oh No! ${players.player.playerNumber} got a ${ players.player.trap.name }! ${players.player.trap.desc}`}</h1>
-
             }
             <hr />
 
@@ -121,10 +117,10 @@ class GameDetails extends PureComponent {
           <Grid container direction='column' alignItems='center' justify='center'>
             <Grid item>
               {game && game.players && game.players.length > 1 && game.players[0].playerNumber === 'player2' &&
-                <img width="450" height="450" src={getMedia(JSON.parse(game.players[0].avatar))} />
+                <img width="400" height="400" src={getMedia(JSON.parse(game.players[0].avatar))} />
               }
               {game && game.players && game.players.length > 1 && game.players[1].playerNumber === 'player2' &&
-                <img width="450" height="450" src={getMedia(JSON.parse(game.players[1].avatar))} />
+                <img width="400" height="400" src={getMedia(JSON.parse(game.players[1].avatar))} />
               }
             </Grid>
             <Grid item><h1>PLAYER 2</h1></Grid>
