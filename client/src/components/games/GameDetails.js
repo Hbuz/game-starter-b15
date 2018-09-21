@@ -36,85 +36,91 @@ class GameDetails extends PureComponent {
 
     const winner = game.winner
 
-    return (<div className="outer-paper">
-      <h1>Game #{game.id}</h1>
-
-      <p>Status: {game.status}</p>
-
-      {
-        game.status === 'started' &&
-        player && player.userId === game.turn &&
-        <div>It's your turn!</div>
-      }
-
-      {
-        game.status === 'started' &&
-        player && player.userId !== game.turn &&
-        <div>Wait the other player move</div>
-      }
-
-      {
-        game.status === 'pending' &&
-        game.players.map(p => p.userId).indexOf(userId) === -1 &&
-        <button onClick={this.joinGame}>Join Game</button>
-      }
-
-      {
-        winner &&
-        <h1>Winner: {users[winner.userId].firstName}</h1>
-      }
-
-      {
-        game.status === 'started' &&
-        <div>   
-        <button onClick={this.updateGame} className="button-style">Dice</button>
-         <span className="Font-style-Dice"><em><b>Dice Score 1:<span ClassName="words"> {game.dice?game.dice[0]:0}</span></b></em></span><span className="Font-styles-Dice2"><em><b>
-        Dice Score 2: {game.dice?game.dice[1]:0}</b></em></span>
-        {player && player.currentCell &&
-        <span><h2>Previous cell: {player.currentCell}</h2></span>}
-        </div>
-      }
-      {players && players.player.trap.name !== '' &&
-        <h1>{players.player.playerNumber} got a {players.player.trap.name}! {players.player.trap.desc}</h1>
-        // <h1>{alert(`Oh No! ${players.player.playerNumber} got a ${ players.player.trap.name }! ${players.player.trap.desc}`}</h1>
-
-      }
-      <hr />
-
+    return (
       <Grid
         container
-        spacing={16}
+        spacing={0}
         // className={classes.demo}
         alignItems='center'
         direction='raw'
-        justify='space-between'
+        justify='space-evenly'
       >
-        <Grid item>
-          {game && game.players && game.players.length > 0 &&
-            <img width="300" height="400" src={getMedia(JSON.parse(game.players[0].avatar))} />
-          }
+        <Grid item xs={1}>
+          <Grid container>
+            <Grid>
+              {game && game.players && game.players.length > 0 &&
+                <img width="300" height="350" src={getMedia(JSON.parse(game.players[0].avatar))} />
+              }
+            </Grid>
+            <Grid><h1>PLAYER 1</h1></Grid>
+          </Grid>
         </Grid>
-        <Grid item>
-          {
-            game.status !== 'pending' &&
-            <Board board={game.board} />
-          }
+        <Grid item xs={9}>
+          <div className="outer-paper">
+            <h1>Game #{game.id}</h1>
+
+            <p>Status: {game.status}</p>
+
+            {
+              game.status === 'started' &&
+              player && player.userId === game.turn &&
+              <div>It's your turn!</div>
+            }
+
+            {
+              game.status === 'started' &&
+              player && player.userId !== game.turn &&
+              <div>Wait the other player move</div>
+            }
+
+            {
+              game.status === 'pending' &&
+              game.players.map(p => p.userId).indexOf(userId) === -1 &&
+              <button onClick={this.joinGame}>Join Game</button>
+            }
+
+            {
+              winner &&
+              <h1>Winner: {users[winner.userId].firstName}</h1>
+            }
+
+            {
+              game.status === 'started' &&
+              <div>
+                <button onClick={this.updateGame} className="button-style">Dice</button>
+                <span className="Font-style-Dice"><em><b>Dice Score 1:<span ClassName="words"> {game.dice ? game.dice[0] : 0}</span></b></em></span><span className="Font-styles-Dice2"><em><b>
+                  Dice Score 2: {game.dice ? game.dice[1] : 0}</b></em></span>
+                {player && player.currentCell &&
+                  <span><h2>Previous cell: {player.currentCell}</h2></span>}
+              </div>
+            }
+            {players && players.player.trap.name !== '' &&
+              <h1>{players.player.playerNumber} got a {players.player.trap.name}! {players.player.trap.desc}</h1>
+              // <h1>{alert(`Oh No! ${players.player.playerNumber} got a ${ players.player.trap.name }! ${players.player.trap.desc}`}</h1>
+
+            }
+            <hr />
+
+
+            {
+              game.status !== 'pending' &&
+              <Board board={game.board} />
+            }
+          </div>
+
         </Grid>
-        <Grid item>
-          {game && game.players && game.players.length > 0 &&
-            <img width="300" height="400" src={getMedia(JSON.parse(game.players[1].avatar))} />
-          }
+        <Grid item xs={2}>
+          <Grid container>>
+            <Grid>
+              {game && game.players && game.players.length > 1 &&
+                <img width="450" height="450" src={getMedia(JSON.parse(game.players[1].avatar))} />
+              }
+            </Grid>
+            <Grid><h1>PLAYER 2</h1></Grid>
+          </Grid>
         </Grid>
       </Grid>
-      {/* <span>
-        {
-          game.status !== 'pending' &&
-          <Board board={game.board} />
-        }
-      </span> */}
-
-
-    </div>)
+    )
   }
 }
 

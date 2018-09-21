@@ -4,6 +4,7 @@ import snake from '../../images/snake.ico'
 import quicksand from '../../images/quicksand.png'
 import {getMedia} from '../../lib/utils'
 import treasure from '../../images/treasure.png'
+import shortcut from '../../images/shortcut.png'
 
 
 const renderCel = (rowIndex, cellIndex, cell, hasTurn) => {
@@ -36,6 +37,7 @@ const renderCel = (rowIndex, cellIndex, cell, hasTurn) => {
         : <div></div>}
       {cell.hiddenTrap.id === 1 ? <div className="board-style-img"><img src={snake} /> </div> : <div></div>}
       {cell.hiddenTrap.id === 2 ? <div className="board-style-img"><img src={quicksand} /> </div> : <div></div>}
+      {cell.hiddenTrap.id === 3 ? <div className="board-style-img"><img src={shortcut} /> </div> : <div></div>}
       {cell.cellPathNumber === 36 ? <div className="board-style-final"><img src={treasure} /> </div> : <div></div>}
    
     </div>
