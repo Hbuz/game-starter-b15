@@ -9,6 +9,7 @@ import Card, { CardActions, CardContent } from 'material-ui/Card'
 import Typography from 'material-ui/Typography'
 import './GamesList.css'
 import player1 from '../../images/player1.png'
+import { getRandomCharacter } from '../../lib/utils'
 
 class GamesList extends PureComponent {
   componentWillMount() {
@@ -48,7 +49,7 @@ class GamesList extends PureComponent {
     </Card>)
   }
 
-  createGame = () => this.props.createGame(player1)
+  createGame = () => this.props.createGame(getRandomCharacter())
 
   render() {
     const { games, users, authenticated } = this.props

@@ -30,7 +30,7 @@ export default class GameController {
     const game = await Game.findOneById(entity.id)
     if (!game) throw new BadRequestError(`Game does not exist`)
     game.board[0][0].current.push(player)
-    game.turn = 1 //CHECK
+    game.turn = 1
     await game.save()
 
     io.emit('action', {
@@ -113,7 +113,7 @@ export default class GameController {
     const finishCell = game.board[game.board.length - 1][game.board[game.board.length - 1].length - 1]  //Pick the last cell of 2-dimensional array
 
     //CHECK IF WON
-    if (newPathCell > finishCell.cellPathNumber) {
+    if (newPathCell >= finishCell.cellPathNumber) {
       player.currentCell = finishCell.cellPathNumber
       game.winner = player
       game.status = 'finished'  //END OF THE GAME
