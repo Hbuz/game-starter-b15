@@ -72,9 +72,9 @@ export const createGame = (avatar) => (dispatch, getState) => {
     .catch(err => console.error(err))
 }
 
-export const updateGame = (gameId, board) => (dispatch, getState) => {
+export const updateGame = (gameId, otherPlayer) => (dispatch, getState) => {
 
-  console.log("Inside action")
+  const trap = otherPlayer? otherPlayer.player.trap : null
   const state = getState()
   const jwt = state.currentUser.jwt
 
@@ -83,7 +83,7 @@ export const updateGame = (gameId, board) => (dispatch, getState) => {
   request
     .patch(`${baseUrl}/games/${gameId}`)
     .set('Authorization', `Bearer ${jwt}`)
-    .send({ board })
+    .send(trap)
     .then(_ => dispatch(updateGameSuccess()))   //_ is the game returned from the server
     .catch(err => console.error(err))
 }
