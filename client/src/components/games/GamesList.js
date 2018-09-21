@@ -1,8 +1,8 @@
-import React, {PureComponent} from 'react'
-import {getGames, createGame} from '../../actions/games'
-import {getUsers} from '../../actions/users'
-import {connect} from 'react-redux'
-import {Redirect} from 'react-router-dom'
+import React, { PureComponent } from 'react'
+import { getGames, createGame } from '../../actions/games'
+import { getUsers } from '../../actions/users'
+import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import Button from 'material-ui/Button'
 import Paper from 'material-ui/Paper'
 import Card, { CardActions, CardContent } from 'material-ui/Card'
@@ -57,19 +57,21 @@ class GamesList extends PureComponent {
       <Redirect to="/login" />
     )
     if (games === null || users === null) return null
-    return (<Paper className="outer-paper">
-      <Button
-        color="primary"
-        variant="raised"
-        onClick={this.createGame}
-        className="create-game"
-      >
-        Start Game
+    return (
+
+      <Paper className="outer-paper">
+        <Button
+          color="primary"
+          variant="raised"
+          onClick={this.createGame}
+          className="create-game"
+        >
+          Start Game
       </Button>
-      <div>
-        {games.map(game => this.renderGame(game))}
-      </div>
-    </Paper>)
+        <div>
+          {games.map(game => this.renderGame(game))}
+        </div>
+      </Paper>)
   }
 }
 
@@ -80,4 +82,4 @@ const mapStateToProps = state => ({
     null : Object.values(state.games).sort((a, b) => b.id - a.id)
 })
 
-export default connect(mapStateToProps, {getGames, getUsers, createGame})(GamesList)
+export default connect(mapStateToProps, { getGames, getUsers, createGame })(GamesList)
