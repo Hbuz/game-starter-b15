@@ -2,6 +2,7 @@ import React from 'react'
 import './Board.css'
 import snake from '../../images/snake.ico'
 import quicksand from '../../images/quicksand.png'
+import treasure from '../../images/treasure.png'
 
 
 const renderCel = (rowIndex, cellIndex, cell, hasTurn) => {
@@ -22,17 +23,20 @@ const renderCel = (rowIndex, cellIndex, cell, hasTurn) => {
           //   playerImage = getMedia(player.avatar)
           // }
           const playerImage = typeof player.avatar === 'string' ? getMedia(JSON.parse(player.avatar)) : getMedia(player.avatar)
-
+          
           return (<div className="board-style-img">
             <img src={playerImage} />
           </div>)
+        
         }
-
+        
         )}
       </div>
         : <div></div>}
-      {cell.hiddenTrap.id === 1 ? <div className="board-style-img">{cell.cellPathNumber}<img src={snake} /> </div> : <div></div>}
-      {cell.hiddenTrap.id === 2 ? <div className="board-style-img">{cell.cellPathNumber}<img src={quicksand} /> </div> : <div></div>}
+      {cell.hiddenTrap.id === 1 ? <div className="board-style-img"><img src={snake} /> </div> : <div></div>}
+      {cell.hiddenTrap.id === 2 ? <div className="board-style-img"><img src={quicksand} /> </div> : <div></div>}
+      {cell.cellPathNumber === 36 ? <div className="board-style-final"><img src={treasure} /> </div> : <div></div>}
+   
     </div>
   )
 }
