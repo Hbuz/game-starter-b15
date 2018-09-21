@@ -2,6 +2,7 @@ import React from 'react'
 import './Board.css'
 import snake from '../../images/snake.ico'
 import quicksand from '../../images/quicksand.png'
+import {getMedia} from '../../lib/utils'
 
 
 const renderCel = (rowIndex, cellIndex, cell, hasTurn) => {
@@ -31,8 +32,8 @@ const renderCel = (rowIndex, cellIndex, cell, hasTurn) => {
         )}
       </div>
         : <div></div>}
-      {cell.hiddenTrap.id === 1 ? <div className="board-style-img">{cell.cellPathNumber}<img src={snake} /> </div> : <div></div>}
-      {cell.hiddenTrap.id === 2 ? <div className="board-style-img">{cell.cellPathNumber}<img src={quicksand} /> </div> : <div></div>}
+      {cell.hiddenTrap.id === 1 ? <div className="board-style-img"><img src={snake} /> </div> : <div></div>}
+      {cell.hiddenTrap.id === 2 ? <div className="board-style-img"><img src={quicksand} /> </div> : <div></div>}
     </div>
   )
 }
@@ -46,9 +47,9 @@ export default ({ board }) => board.map((cells, rowIndex) =>
 )
 
 
-const getMedia = (avatar) => {
+/* const getMedia = (avatar) => {
   const url = Object.keys(avatar)
   const code = Object.keys((avatar[url]))
   const ext = Object.keys((avatar[url][code]))
   return url + '.' + code + '.' + ext
-}
+} */
