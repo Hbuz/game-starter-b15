@@ -108,6 +108,7 @@ export default class GameController {
     const newPathCell: number = player.currentCell + score[0] + score[1]
     // const newPathCell: number = 13 //UNCOMMENT IF YOU WANT TO TEST THE SNAKE
     // const newPathCell: number = 19 //UNCOMMENT IF YOU WANT TO TEST THE QUICKSAND
+    // const newPathCell: number = 19 //UNCOMMENT IF YOU WANT TO TEST THE QUICKSAND
 
     const finishCell = game.board[game.board.length - 1][game.board[game.board.length - 1].length - 1]  //Pick the last cell of 2-dimensional array
 
@@ -222,7 +223,10 @@ const trapSwitch = (hiddenTrap: number): number => {
       cellToRemove = 5  //number of cell to go back
       break
       case 2: //quicksand
-      cellToRemove = 0  //number of cell to go back
+      cellToRemove = 0  //stop for 1 turn
+      break
+      case 3: //shortcut
+      cellToRemove = -3  //number of cell to go further
       break
     default:
       cellToRemove = 0
