@@ -8,7 +8,6 @@ import Paper from 'material-ui/Paper'
 import Card, { CardActions, CardContent } from 'material-ui/Card'
 import Typography from 'material-ui/Typography'
 import './GamesList.css'
-import player1 from '../../images/player1.png'
 import { getRandomCharacter } from '../../lib/utils'
 
 class GamesList extends PureComponent {
@@ -21,58 +20,41 @@ class GamesList extends PureComponent {
 
   renderGame = (game) => {
     const { users, history } = this.props
-    return (<Card key={game.id} className="game-card">
-      <CardContent>
-        <Typography color="textSecondary">
+    return (<div key={game.id}>
+        <div color="textSecondary">
           This game is played by&nbsp;
           {
-            game.players
-              .map(player => users[player.userId].firstName)
+            game.players.map(player => users[player.userId].firstName)
               .join(' and ')
           }
-        </Typography>
-        <Typography variant="headline" component="h2">
-          Game #{game.id}
-        </Typography>
-        <Typography color="textSecondary">
-          Status: {game.status}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button
-          size="small"
-          onClick={() => history.push(`/games/${game.id}`)}
-        >
-          Watch
-        </Button>
-      </CardActions>
-    </Card>)
+        </div>
+      </div>)
   }
 
   createGame = () => this.props.createGame(getRandomCharacter())
 
   render() {
     const { games, users, authenticated } = this.props
-
+    console.log("game",games); 
     if (!authenticated) return (
       <Redirect to="/login" />
     )
     if (games === null || users === null) return null
     return (
 
-      <Paper className="outer-paper">
+      <div className="outer-paper">
         <Button
           color="primary"
           variant="raised"
           onClick={this.createGame}
           className="create-game"
         >
-          Start Game
+          Create New Event
       </Button>
         <div>
           {games.map(game => this.renderGame(game))}
         </div>
-      </Paper>)
+      </div>)
   }
 }
 

@@ -15,9 +15,9 @@ const TopBar = (props) => {
     <AppBar position="absolute" style={{zIndex:10}}>
       <Toolbar>
         <Typography variant="title" color="inherit" style={{flex: 1}}>
-          Multiplayer Dice Board Game
+          Uber Ticketing System
         </Typography>
-        
+              
         {
           user &&
           <Button color="inherit"><AccountIcon /> { user.firstName }</Button>
@@ -33,7 +33,7 @@ const TopBar = (props) => {
         }
         {
           location.pathname.indexOf('games/') > 0 &&
-          <Button color="inherit" onClick={() => history.push('/games')}>All Games</Button>
+          <Button color="inherit" onClick={() => history.push('/games')}>Back To Home</Button>
         }
         {
           /games$/.test(location.pathname) &&
