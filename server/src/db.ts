@@ -5,6 +5,8 @@ import { snakeCase } from 'typeorm/util/StringUtils'
 import User from './users/entity'
 import Game from './games/entity'
 import Player from './players/entity'
+import Event from './events/entities'
+import Ticket from './ticket/entities'
 
 class CustomNamingStrategy extends DefaultNamingStrategy implements NamingStrategyInterface {
 
@@ -32,7 +34,9 @@ export default () =>
     entities: [
       User,
       Player,
-      Game
+      Game,
+      Event,
+      Ticket
     ],
     synchronize: true, // careful with this in production!
     logging: true,

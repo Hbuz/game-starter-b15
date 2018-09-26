@@ -41,8 +41,13 @@ class GamesList extends PureComponent {
     )
     if (games === null || users === null) return null
     return (
-
-      <div className="outer-paper">
+      console.log("games test",games ))
+      
+      testgames.map((dynamicdata, i) => {
+         <p>{dynamicdata}</p>
+        })
+        
+     /* <div className="outer-paper">
         <Button
           color="primary"
           variant="raised"
@@ -54,7 +59,7 @@ class GamesList extends PureComponent {
         <div>
           {games.map(game => this.renderGame(game))}
         </div>
-      </div>)
+      </div>*/
   }
 }
 

@@ -1,5 +1,7 @@
-import { JsonController, Get, Param, Body, Post, HttpCode } from 'routing-controllers'
-import Ticket from './entities'
+import { JsonController, Get, Param, Body, Post, HttpCode,CurrentUser,NotFoundError } from 'routing-controllers'
+import Ticket ,{Comment} from './entities';
+import User from '../users/entity'
+
 
 
 @JsonController()
@@ -10,24 +12,30 @@ export default class TicketController {
   getPage(
     @Param('id') id: number
   ) {
-    return Event.findOne(id)
+    return Ticket.findOne(id)
   }
 
   @Get('/Ticket')
   async allPages() {
-    const events = await Event.find()
-    return { events }
+    const tickets = await Ticket.find()
+    return { tickets }
 
   }
 
   @Post('/Ticket')
   @HttpCode(201)
   createPage(
-    @Body() events: Event
+    @Body() tickets: Ticket
   ) {
-    return events.save()
+    return tickets.save()
   }
 
-
-
+  @Post('/comments/:id')
+  @HttpCode(201)
+  createPage(
+    @Body() tickets: Ticket
+  ) {
+    return tickets.save()
+  }
+  
 }
